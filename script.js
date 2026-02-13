@@ -11,8 +11,8 @@ const catModalBackdrop = document.getElementById("catModalBackdrop");
 let giftClicks = 0;
 const GIFT_TARGET = 6;
 const lines = [
-  "Domanda semplice, risposta pericolosa:",
-  "mi ami? ❤️"
+  "Solo una domanda:",
+  "Mi ami? ❤️"
 ];
 let lineIdx = 0, charIdx = 0;
 
