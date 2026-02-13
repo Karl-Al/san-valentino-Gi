@@ -69,6 +69,11 @@ noBtn.addEventListener("touchstart", (e) => {
   moveNoButton();
 }, { passive: false });
 
+noBtn.addEventListener("click", () => {
+  typedEl.textContent = "Bel tentativo. Ma no.";
+  moveNoButton();
+});
+
 yesBtn.addEventListener("click", () => {
   buttonsBox.classList.add("hidden");
   finalBox.classList.remove("hidden");
