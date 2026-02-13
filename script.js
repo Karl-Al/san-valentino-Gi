@@ -30,20 +30,82 @@ function typeNext() {
   }
 }
 
-// Cuoricini
+// --- PARTICELLE (cuori + gatti calico) ---
 const heartsLayer = document.getElementById("hearts");
-function spawnHeart() {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.textContent = Math.random() > 0.15 ? "❤️" : "💗";
-  h.style.left = Math.random() * 100 + "vw";
-  const duration = 4 + Math.random() * 4; // 4-8s
-  h.style.animationDuration = duration + "s";
-  h.style.fontSize = (14 + Math.random() * 16) + "px";
-  heartsLayer.appendChild(h);
-  setTimeout(() => h.remove(), duration * 1000);
+
+// pool di emoji: più cuori rossi, qualche arancione, qualche calico
+const PARTICLES = [
+  { t: "❤️", w: 0.50 },
+  { t: "💗", w: 0.20 },
+  { t: "🧡", w: 0.15 },   // cuoricino arancione
+  { t: "🐱", w: 0.10 },   // “calico-ish” (se vuoi proprio calico vero, vedi nota sotto)
+  { t: "🐈", w: 0.05 },
+];
+
+function pickWeighted(list) {
+  const r = Math.random();
+  let acc = 0;
+  for (const item of list) {
+    acc += item.w;
+    if (r <= acc) return item.t;
+  }
+  return list[list.length - 1].t;
 }
-setInterval(spawnHeart, 450);
+
+function spawnParticle({ xVw = Math.random() * 100, y = null, kind = "float" } = {}) {
+  const el = document.createElement("div");
+  el.className = `particle ${kind}`;
+  el.textContent = pickWeighted(PARTICLES);
+
+  // posizione
+  if (y === null) {
+    el.style.left = xVw + "vw";
+    el.style.bottom = "-30px";
+  } else {
+    el.style.left = xVw + "vw";
+    el.style.top = y + "px";
+  }
+
+  // variabili random
+  const size = 14 + Math.random() * 18;
+  el.style.fontSize = size + "px";
+
+  // durata float
+  const duration = 4 + Math.random() * 4; // 4-8s
+  el.style.animationDuration = duration + "s";
+
+  // per burst: direzione e spinta
+  el.style.setProperty("--dx", ((Math.random() * 2 - 1) * 220).toFixed(0) + "px");
+  el.style.setProperty("--dy", (-(120 + Math.random() * 260)).toFixed(0) + "px");
+  el.style.setProperty("--rot", ((Math.random() * 2 - 1) * 180).toFixed(0) + "deg");
+
+  heartsLayer.appendChild(el);
+
+  // rimozione
+  const ttl = kind === "burst" ? 1200 : duration * 1000;
+  setTimeout(() => el.remove(), ttl);
+}
+
+// float continuo (più frequente)
+const floatInterval = setInterval(() => spawnParticle(), 260);
+
+// --- BOOM quando fa "Sì" ---
+function boomAtElement(domEl) {
+  const r = domEl.getBoundingClientRect();
+  const centerX = ((r.left + r.width / 2) / window.innerWidth) * 100; // vw
+  const centerY = (r.top + r.height / 2); // px
+
+  // mini flash
+  document.body.classList.add("flash");
+  setTimeout(() => document.body.classList.remove("flash"), 180);
+
+  // “esplosione” di particelle
+  const count = 42;
+  for (let i = 0; i < count; i++) {
+    spawnParticle({ xVw: centerX + (Math.random() * 6 - 3), y: centerY, kind: "burst" });
+  }
+}
+
 
 // Bottoni
 const yesBtn = document.getElementById("yes");
@@ -117,9 +179,12 @@ yesBtn.addEventListener("click", () => {
   if (giftHintEl) giftHintEl.textContent = "Apri il regalo: 6 tocchi.";
   if (couponEl) couponEl.classList.add("hidden");
 
-  // Festa finale: più cuori per 2 secondi
-  const burst = setInterval(spawnHeart, 500);
-  setTimeout(() => clearInterval(burst), 3000);
+  // BOOM + festa finale per 2.5 sec
+  boomAtElement(yesBtn);
+
+  const party = setInterval(() => spawnParticle(), 140);
+  setTimeout(() => clearInterval(party), 2500);
+
 });
 
 // Start
