@@ -179,13 +179,13 @@ noBtn.addEventListener("touchstart", (e) => {
 }, { passive: false });
 
 noBtn.addEventListener("click", () => {
-  typedEl.textContent = "Bel tentativo. Ma no.";
+  typedEl.textContent = "Non ti forzo, puoi chiudere la pagina se vuoi .-.";
   openCatModal();
   moveNoButton();
 });
 
 yesBtn.addEventListener("click", () => {
-  typedEl.textContent = "💗";
+  typedEl.textContent = "🫂";
   buttonsBox.classList.add("hidden");
   finalBox.classList.remove("hidden");
 
@@ -195,7 +195,7 @@ yesBtn.addEventListener("click", () => {
 
   giftClicks = 0;
   if (giftEl) giftEl.textContent = "🎁";
-  if (giftHintEl) giftHintEl.textContent = "Apri il regalo: 6 tocchi.";
+  if (giftHintEl) giftHintEl.textContent = "Tocca il regalo per quanti mesi ci conosciamo💏.";
   if (couponEl) couponEl.classList.add("hidden");
 
   // BOOM + festa finale per 2.5 sec
