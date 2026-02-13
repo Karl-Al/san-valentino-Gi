@@ -195,7 +195,7 @@ yesBtn.addEventListener("click", () => {
 
   giftClicks = 0;
   if (giftEl) giftEl.textContent = "🎁";
-  if (giftHintEl) giftHintEl.textContent = "Tocca il regalo per quanti mesi ci conosciamo💏.";
+  if (giftHintEl) giftHintEl.textContent = "Tocca il regalo per ogni mese passato insieme 💏.";
   if (couponEl) couponEl.classList.add("hidden");
 
   // BOOM + festa finale per 2.5 sec
