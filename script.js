@@ -37,8 +37,8 @@ const heartsLayer = document.getElementById("hearts");
 const PARTICLES = [
   { t: "❤️", w: 0.50 },
   { t: "💗", w: 0.20 },
-  { t: "🧡", w: 0.15 },   // cuoricino arancione
-  { t: "🐱", w: 0.10 },   // “calico-ish” (se vuoi proprio calico vero, vedi nota sotto)
+  { t: "🧡", w: 0.15 },   
+  { t: "🐱", w: 0.10 },   
   { t: "🐈", w: 0.05 },
 ];
 
@@ -75,8 +75,8 @@ function spawnParticle({ xVw = Math.random() * 100, y = null, kind = "float" } =
   el.style.animationDuration = duration + "s";
 
   // per burst: direzione e spinta
-  el.style.setProperty("--dx", ((Math.random() * 2 - 1) * 220).toFixed(0) + "px");
-  el.style.setProperty("--dy", (-(120 + Math.random() * 260)).toFixed(0) + "px");
+  el.style.setProperty("--dx", ((Math.random() * 2 - 1) * 360).toFixed(0) + "px");
+  el.style.setProperty("--dy", (-(180 + Math.random() * 420)).toFixed(0) + "px");
   el.style.setProperty("--rot", ((Math.random() * 2 - 1) * 180).toFixed(0) + "deg");
 
   heartsLayer.appendChild(el);
@@ -100,7 +100,7 @@ function boomAtElement(domEl) {
   setTimeout(() => document.body.classList.remove("flash"), 180);
 
   // “esplosione” di particelle
-  const count = 42;
+  const count = 80;
   for (let i = 0; i < count; i++) {
     spawnParticle({ xVw: centerX + (Math.random() * 6 - 3), y: centerY, kind: "burst" });
   }
