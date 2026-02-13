@@ -1,5 +1,6 @@
 // Typewriter
 const typedEl = document.getElementById("typed");
+const originalText = typedEl.textContent;
 const lines = [
   "Domanda semplice, risposta pericolosa:",
   "mi ami? ❤️"
@@ -75,12 +76,13 @@ noBtn.addEventListener("click", () => {
 });
 
 yesBtn.addEventListener("click", () => {
+  typedEl.textContent = originalText
   buttonsBox.classList.add("hidden");
   finalBox.classList.remove("hidden");
 
   // Festa finale: più cuori per 2 secondi
-  const burst = setInterval(spawnHeart, 120);
-  setTimeout(() => clearInterval(burst), 2000);
+  const burst = setInterval(spawnHeart, 500);
+  setTimeout(() => clearInterval(burst), 3000);
 });
 
 // Start
