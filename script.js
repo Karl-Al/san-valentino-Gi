@@ -41,6 +41,7 @@ function closeCatModal() {
   if (!catModal) return;
   catModal.classList.add("hidden");
 }
+window.addEventListener("DOMContentLoaded", closeCatModal);
 catModalClose?.addEventListener("click", closeCatModal);
 catModalBackdrop?.addEventListener("click", closeCatModal);
 document.addEventListener("keydown", (e) => {

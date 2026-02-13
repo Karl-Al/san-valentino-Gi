@@ -89,7 +89,7 @@ h1 {
 .final p { margin: 6px 0; line-height: 1.35; }
 .small { opacity: .75; font-size: 13px; }
 
-.hidden { display: none; }
+.hidden { display: none !important; }
 
 /* Cuoricini */
 /* PARTICELLE */
