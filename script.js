@@ -1,6 +1,7 @@
 // Typewriter
 const typedEl = document.getElementById("typed");
 const originalText = typedEl.textContent;
+const titleEl = document.getElementById("title");
 const lines = [
   "Domanda semplice, risposta pericolosa:",
   "mi ami? ❤️"
@@ -76,7 +77,11 @@ noBtn.addEventListener("click", () => {
 });
 
 yesBtn.addEventListener("click", () => {
-  typedEl.textContent = originalText
+  typedEl.textContent = "💗";
+  buttonsBox.classList.add("hidden");
+  finalBox.classList.remove("hidden");
+
+  titleEl.classList.add("hidden");
   buttonsBox.classList.add("hidden");
   finalBox.classList.remove("hidden");
 
