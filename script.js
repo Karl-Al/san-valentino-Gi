@@ -2,6 +2,11 @@
 const typedEl = document.getElementById("typed");
 const originalText = typedEl.textContent;
 const titleEl = document.getElementById("title");
+const giftEl = document.getElementById("gift");
+const giftHintEl = document.getElementById("giftHint");
+const couponEl = document.getElementById("coupon");
+let giftClicks = 0;
+const GIFT_TARGET = 6;
 const lines = [
   "Domanda semplice, risposta pericolosa:",
   "mi ami? ❤️"
@@ -63,6 +68,28 @@ function moveNoButton() {
   noBtn.style.top = `${y}px`;
   noBtn.style.right = "auto"; // disattiva il "right" iniziale
 }
+function handleGiftClick() {
+  if (!giftEl || !giftHintEl || !couponEl) return;
+
+  giftClicks++;
+  giftEl.classList.add("shake");
+  setTimeout(() => giftEl.classList.remove("shake"), 200);
+
+  const remaining = GIFT_TARGET - giftClicks;
+
+  if (remaining > 0) {
+    giftHintEl.textContent = `Quasi… ancora ${remaining} tocchi.`;
+  } else {
+    giftEl.textContent = "🎉";
+    giftHintEl.textContent = "Aperto!";
+    couponEl.classList.remove("hidden");
+  }
+}
+
+if (giftEl) {
+  giftEl.addEventListener("click", handleGiftClick);
+  giftEl.addEventListener("touchstart", (e) => { e.preventDefault(); handleGiftClick(); }, { passive: false });
+}
 
 noBtn.addEventListener("mouseover", moveNoButton);
 // Supporto mobile: quando prova a toccarlo, scappa
@@ -84,6 +111,11 @@ yesBtn.addEventListener("click", () => {
   titleEl.classList.add("hidden");
   buttonsBox.classList.add("hidden");
   finalBox.classList.remove("hidden");
+
+  giftClicks = 0;
+  if (giftEl) giftEl.textContent = "🎁";
+  if (giftHintEl) giftHintEl.textContent = "Apri il regalo: 6 tocchi.";
+  if (couponEl) couponEl.classList.add("hidden");
 
   // Festa finale: più cuori per 2 secondi
   const burst = setInterval(spawnHeart, 500);
