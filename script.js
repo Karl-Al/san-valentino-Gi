@@ -175,6 +175,7 @@ noBtn.addEventListener("mouseover", moveNoButton);
 // Supporto mobile: quando prova a toccarlo, scappa
 noBtn.addEventListener("touchstart", (e) => {
   e.preventDefault();
+  openCatModal();
   moveNoButton();
 }, { passive: false });
 
