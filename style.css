@@ -173,3 +173,66 @@ body.flash::after {
 }
 
 .coupon h3 { margin: 0 0 8px; }
+/* MODAL (popup foto gatto) */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+}
+
+.modalBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+}
+
+.modalBox {
+  position: relative;
+  width: min(92vw, 420px);
+  border-radius: 18px;
+  padding: 16px 16px 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+  text-align: center;
+  animation: popIn .18s ease-out;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.modalClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 0;
+  background: rgba(255,255,255,0.14);
+  color: #fff;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.modalTitle {
+  margin: 6px 0 10px;
+  font-size: 18px;
+}
+
+.modalImg {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.16);
+}
+
+.modalText {
+  margin: 10px 0 0;
+  opacity: 0.9;
+  font-size: 14px;
+}

@@ -5,6 +5,9 @@ const titleEl = document.getElementById("title");
 const giftEl = document.getElementById("gift");
 const giftHintEl = document.getElementById("giftHint");
 const couponEl = document.getElementById("coupon");
+const catModal = document.getElementById("catModal");
+const catModalClose = document.getElementById("catModalClose");
+const catModalBackdrop = document.getElementById("catModalBackdrop");
 let giftClicks = 0;
 const GIFT_TARGET = 6;
 const lines = [
@@ -29,6 +32,20 @@ function typeNext() {
     setTimeout(typeNext, 500);
   }
 }
+
+function openCatModal() {
+  if (!catModal) return;
+  catModal.classList.remove("hidden");
+}
+function closeCatModal() {
+  if (!catModal) return;
+  catModal.classList.add("hidden");
+}
+catModalClose?.addEventListener("click", closeCatModal);
+catModalBackdrop?.addEventListener("click", closeCatModal);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeCatModal();
+});
 
 // --- PARTICELLE (cuori + gatti calico) ---
 const heartsLayer = document.getElementById("hearts");
@@ -162,6 +179,7 @@ noBtn.addEventListener("touchstart", (e) => {
 
 noBtn.addEventListener("click", () => {
   typedEl.textContent = "Bel tentativo. Ma no.";
+  openCatModal();
   moveNoButton();
 });
 
